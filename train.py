@@ -7,7 +7,7 @@ MSFFEC-Net 训练脚本
     edge_pred : 边缘预测图  [B, 1, H, W]
 
 损失函数:
-    L_total = L_seg(DiceBCE) + L_boundary(BCE) + 0.1 * L_NCE(对比损失)
+    L_total = L_seg(DiceBCE) + L_boundary(BCE) +  L_NCE(对比损失)
 """
 
 import os
@@ -119,7 +119,7 @@ def train_one_epoch(model, loader, optimizer,
                     seg_loss_fn, bce_loss_fn, device):
     """
     一个 epoch 的训练。
-    损失: L_total = L_seg + L_boundary + 0.1 * L_NCE
+    损失: L_total = L_seg + L_boundary +  L_NCE
     """
     model.train()
 
@@ -141,7 +141,7 @@ def train_one_epoch(model, loader, optimizer,
         l_seg      = seg_loss_fn(pred, y)                    # DiceBCE，公式(31)
         l_boundary = bce_loss_fn(edge_pred, edge)            # BCE，公式(7)
         l_nce      = ContrastCELoss()(pred, emb, y)          # 对比损失，公式(21)
-        loss       = l_seg + l_boundary + 0.1 * l_nce        # 公式(30)
+        loss       = l_seg + l_boundary +  l_nce             # 公式(30)
 
         loss.backward()
         optimizer.step()
@@ -186,7 +186,7 @@ def evaluate(model, loader, seg_loss_fn, bce_loss_fn, device):
         l_seg      = seg_loss_fn(pred, y)
         l_boundary = bce_loss_fn(edge_pred, edge)
         l_nce      = ContrastCELoss()(pred, emb, y)
-        loss       = l_seg + l_boundary + 0.1 * l_nce
+        loss       = l_seg + l_boundary +  l_nce
 
         total_loss += loss.item()
         total_seg  += l_seg.item()
@@ -285,7 +285,7 @@ if __name__ == "__main__":
     bce_loss_fn = nn.BCEWithLogitsLoss()                     # L_boundary
 
     print_and_save(train_log_path,
-                   "Optimizer: Adam | Loss: DiceBCE + BCE(edge) + 0.1*NCE")
+                   "Optimizer: Adam | Loss: DiceBCE + BCE(edge) + NCE")
 
     # ── 训练循环 ─────────────────────────────────────────────────────────────
     best_f1     = 0.0
