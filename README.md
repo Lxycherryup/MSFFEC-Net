@@ -150,7 +150,7 @@ python train.py
 
 **损失函数**：
 
-$$L_{total} = L_{seg} + L_{boundary} + 0.1 \times L_{NCE}$$
+$$L_{total} = L_{seg} + L_{boundary} +  L_{NCE}$$
 
 - $L_{seg}$：DiceLoss + 加权 BCE（分割主损失）
 - $L_{boundary}$：BCE（边缘预测监督）
