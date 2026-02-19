@@ -4,13 +4,14 @@
 
 MSFFEC-Net 是一个用于息肉图像分割的深度学习网络。它基于 PVTv2-B2 编码器，结合边缘感知增强、多尺度特征融合和对比学习三大核心模块，实现高精度的息肉区域分割。
 
-> 📄 论文投稿至 *The Visual Computer*（Springer）
+> 📄 **论文投稿至 *The Visual Computer*（Springer）**
 
 ---
 
 ## 网络结构
 
-![Network Architecture](image.png)
+<img width="1442" height="747" alt="image" src="https://github.com/user-attachments/assets/0e7a7418-6560-4f0a-ade0-f7c1f956065f" />
+
 
 MSFFEC-Net 由以下四个核心模块组成：
 
