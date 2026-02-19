@@ -1,0 +1,9 @@
+*.png
+*.jpg
+*.pth
+*.tar.gz
+
+
+__pycache__/
+*.py[cod]
+*$py.class
